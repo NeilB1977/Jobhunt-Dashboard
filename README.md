@@ -1,1 +1,71 @@
-# Jobhunt-Dashboard
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobhunt Dashboard - Neil Broes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8 font-sans">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-blue-800">Jobhunt Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Sollicitaties -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                <h2 class="text-xl font-bold mb-4 text-blue-700">🎯 Lopende Sollicitaties</h2>
+                <ul class="space-y-3">
+                    <li class="p-3 bg-gray-50 rounded border border-gray-200"><strong>Q8:</strong> Project Coördinator Digital & IT <span class="text-sm font-semibold text-orange-600 float-right">Actief bewaken</span></li>
+                    <li class="p-3 bg-gray-50 rounded border border-gray-200"><strong>iO:</strong> CRM Project Manager <span class="text-sm font-semibold text-orange-600 float-right">Actief bewaken</span></li>
+                    <li class="p-3 bg-gray-50 rounded border border-gray-200"><strong>Cronos:</strong> Vrije sollicitatie <span class="text-sm text-gray-500 float-right">Verstuurd 02/10</span></li>
+                    <li class="p-3 bg-gray-50 rounded border border-gray-200"><strong>Kingfisher IT:</strong> Vrije sollicitatie <span class="text-sm text-gray-500 float-right">Verstuurd 02/10</span></li>
+                </ul>
+            </div>
+
+            <!-- Suggesties -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-yellow-400">
+                <h2 class="text-xl font-bold mb-4 text-yellow-600">💡 Suggesties (Blikverruimers)</h2>
+                <div class="mb-5">
+                    <h3 class="font-bold text-gray-800">🏢 Interessante Vacature:</h3>
+                    <p class="text-sm text-gray-600 mt-1"><strong>Business / Functioneel Analist – Digitale Transformatie</strong> bij The Master Labs (Kontich). Richt zich puur op het raakvlak van business en IT en het begeleiden van stakeholders. Ligt vlakbij Boechout en matcht perfect met je identiteit als bruggenbouwer.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800">🎓 Interessante Cursus:</h3>
+                    <p class="text-sm text-gray-600 mt-1"><strong>Generatieve AI voor Business / AI in de Praktijk.</strong> Toont aan dat je 'learning agility' zich ook uitstrekt tot de technologie van morgen.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban -->
+        <h2 class="text-2xl font-bold mb-4 text-blue-800">📋 Kanban Bord</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- To Do -->
+            <div class="bg-red-50 p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-3 text-red-700">🔴 To Do</h3>
+                <ul class="space-y-3">
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">Follow-up sturen naar Grisha (Flexso) en Sandra (Vistex) <br><span class="text-xs text-gray-500">Deadline: Volgende week</span></li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">Opnieuw contact opnemen met Boris (Pricefx) <br><span class="text-xs text-gray-500">Deadline: 2 november</span></li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">Oriënteren op korte online module AI voor bedrijfsprocessen of PowerBI <br><span class="text-xs text-gray-500">Deadline: Deze maand</span></li>
+                </ul>
+            </div>
+            <!-- In Progress -->
+            <div class="bg-orange-50 p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-3 text-orange-700">🟠 In Progress</h3>
+                <ul class="space-y-3">
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Nieuwe reach-outs naar beslissingsnemers (BASF, Reynaers, Ineos)</li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Jobhunt_2 dossier actief raadplegen</li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">LinkedIn Learning cursus Design Thinking</li>
+                </ul>
+            </div>
+            <!-- Done -->
+            <div class="bg-green-50 p-4 rounded-lg shadow-md">
+                <h3 class="text-lg font-bold mb-3 text-green-700">🟢 Done</h3>
+                <ul class="space-y-3">
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500 text-gray-500 line-through">Afgewerkte elevator pitch (WIIFM & adoptie geïntegreerd) <br><span class="text-xs text-gray-400">02/10</span></li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500 text-gray-500 line-through">Personal Branding & Kernkwadranten uitgewerkt</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
