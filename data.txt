@@ -1,0 +1,32 @@
+```markdown
+# Jobhunt Dashboard Data
+
+## 🎯 Lopende Sollicitaties
+* **Q8:** Project Coördinator Digital & IT (Actief bewaken)
+* **iO:** CRM Project Manager (Actief bewaken)
+* **Cronos:** Vrije sollicitatie (Verstuurd 02/10)
+* **Kingfisher IT:** Vrije sollicitatie (Verstuurd 02/10)
+
+## 📋 Kanban Bord
+**To Do:**
+* Follow-up sturen naar Grisha (Flexso) en Sandra (Vistex) (Volgende week)
+* Opnieuw contact opnemen met Boris (Pricefx) (2 november)
+* Oriënteren op korte online module AI voor bedrijfsprocessen of PowerBI (Deze maand)
+
+**In Progress:**
+* Nieuwe reach-outs naar beslissingsnemers (BASF, Reynaers, Ineos)
+* Jobhunt_2 dossier actief raadplegen
+* LinkedIn Learning cursus Design Thinking
+
+**Done:**
+* Afgewerkte elevator pitch (WIIFM & adoptie geïntegreerd) (02/10)
+* Personal Branding & Kernkwadranten uitgewerkt
+
+## 💡 Suggesties (Blikverruimers)
+* **Interessante Vacature:** Business / Functioneel Analist – Digitale Transformatie bij The Master Labs (Kontich). Richt zich puur op het raakvlak van business en IT en het begeleiden van stakeholders. Ligt vlakbij Boechout en matcht perfect met je identiteit als bruggenbouwer.
+* **Interessante Cursus:** Generatieve AI voor Business / AI in de Praktijk. Toont aan dat je 'learning agility' zich ook uitstrekt tot de technologie van morgen.
+
+## 🎙️ Elevator Pitch
+"Ik ben een Senior Business Expert met ruim 20 jaar ervaring, specifiek gespecialiseerd in CRM, Pricing en SAP SD. In de kern ben ik de bruggenbouwer die de kloof dicht tussen strategische businessbehoeften en IT-levering. Waar processen vastlopen, gebruik ik mijn helikopterblik om complexe uitdagingen behapbaar te maken en te vertalen naar efficiënte oplossingen. Wat mij uniek maakt, is mijn focus op de mens en adoptie: door altijd te zoeken naar de 'what's in it for me' voor elke stakeholder en met een open, empathische stijl te communiceren, creëer ik draagvlak van de werkvloer tot op C-level. Zo zorg ik ervoor dat technologie niet alleen technisch klopt, maar ook écht wordt geadopteerd en direct meetbare waarde oplevert."
+
+```
