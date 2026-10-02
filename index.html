@@ -1,8 +1,3 @@
-Hier is de code voor je dynamische dashboard in HTML en Tailwind CSS. Je kunt deze code rechtstreeks kopiëren en plakken in je `index.html` bestand in je GitHub repository (`Jobhunt-Dashboard`).
-
-Dit dashboard bevat al je actuele sollicitaties, het Kanban-bord met de juiste statussen, de blikverruimers én je elevator pitch als dagelijkse reminder.
-
-```html
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -65,24 +60,22 @@ Dit dashboard bevat al je actuele sollicitaties, het Kanban-bord met de juiste s
             <div class="bg-orange-50 p-4 rounded-lg shadow-md">
                 <h3 class="text-lg font-bold mb-3 text-orange-700">🟠 In Progress</h3>
                 <ul class="space-y-3">
-                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Nieuwe reach-outs naar beslissingsnemers (BASF, Reynaers, Ineos, KABAS, Cooder)</li>
-                    <li class="p-3 bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Jobhunt_2 dossier actief raadplegen</li>
-                    <li class="p-3 bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">LinkedIn Learning cursus Design Thinking</li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Reach-out naar Wouter Flik (Cooder - IT jobplatform) <br><span class="text-xs text-gray-500">02/10</span></li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Reach-out naar Raf Vereycken (KABAS - Duurzame verpakkingen) <br><span class="text-xs text-gray-500">02/10</span></li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Nieuwe reach-outs naar beslissingsnemers (BASF, Reynaers, Ineos)</li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">Jobhunt_2 dossier actief raadplegen</li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">LinkedIn Learning cursus Design Thinking</li>
                 </ul>
             </div>
             <!-- Done -->
             <div class="bg-green-50 p-4 rounded-lg shadow-md">
                 <h3 class="text-lg font-bold mb-3 text-green-700">🟢 Done</h3>
                 <ul class="space-y-3">
-                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">Afgewerkte elevator pitch (WIIFM & adoptie geïntegreerd) <br><span class="text-xs text-gray-400">02/10</span></li>
-                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">Webinar: Organiseer je zoekcampagne <br><span class="text-xs text-gray-400">Deze week</span></li>
-                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">Webinar: Een verbluffend cv <br><span class="text-xs text-gray-400">Deze week</span></li>
-                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">Personal Branding & Kernkwadranten uitgewerkt</li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500 text-gray-500 line-through">Afgewerkte elevator pitch (WIIFM & adoptie geïntegreerd) <br><span class="text-xs text-gray-400">02/10</span></li>
+                    <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500 text-gray-500 line-through">Personal Branding & Kernkwadranten uitgewerkt</li>
                 </ul>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-```
