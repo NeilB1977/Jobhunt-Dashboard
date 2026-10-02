@@ -37,7 +37,7 @@ def main():
     try:
         # We gebruiken de stabiele generate_content call
         response = client.models.generate_content(
-            model='gemini-3.8-flash',
+            model='gemini-2.5-flash',
             contents=prompt,
         )
         
