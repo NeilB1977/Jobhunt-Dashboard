@@ -1,6 +1,3 @@
-yaml
-name: Gemini Automatische Data Update
-
 on:
   push:
     branches: [ main ]  # Start direct als je code of data pusht naar de main branch
