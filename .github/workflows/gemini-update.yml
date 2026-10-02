@@ -2,9 +2,9 @@ name: Gemini Live Dashboard Update
 
 on:
   push:
-    branches: [ main ]  # Start zodra je data.txt aanpast
+    branches: [ main ]  # Start zodra je data.txt of code aanpast
   schedule:
-    - cron: '0 0 * * *' # Start elke nacht om 00:00 uur
+    - cron: '0 0 * * *' # Elke nacht om 00:00 uur
 
 jobs:
   build-dashboard:
@@ -21,47 +21,14 @@ jobs:
       - name: Google GenAI installeren
         run: pip install google-genai
 
-      - name: Dashboard genereren via Gemini
+      - name: Dashboard genereren via Gemini Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          python -c "
-          import os
-          from google import genai
-
-          client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
-
-          # Lees je live data in (zorg dat data.txt bestaat in je repo)
-          with open('data.txt', 'r') as f:
-              live_data = f.read()
-
-          # We vragen Gemini expliciet om pure HTML/JS code op te leveren met Chart.js grafieken
-          prompt = f'''
-          Je bent een expert in data-dashboards. Analyseer de volgende data:
-          {live_data}
-          
-          Maak op basis hiervan een prachtig, modern en responsive HTML-dashboard (index.html).
-          Eisen:
-          1. Gebruik Tailwind CSS via CDN voor een strak, modern design (donkere modus stijl, mooie kaarten, duidelijke statistieken).
-          2. Gebruik Chart.js via CDN om de belangrijkste datapunten visueel te maken in interactieve grafieken (bijv. een lijn- of staafdiagram).
-          3. Voeg een sectie toe met 'Laatste update: ' met de huidige datum/tijd en een korte tekstuele samenvatting van Gemini over de trends.
-          4. Lever ALLEEN de pure HTML-code op. Begin NIET met ```html en eindig NIET met ```. Geen tekst eromheen, direct starten met <!DOCTYPE html>.
-          '''
-
-          response = client.models.generate_content(
-              model='gemini-2.5-flash',
-              contents=prompt,
-          )
-
-          # Sla de gegenereerde code op als index.html
-          with open('index.html', 'w', encoding='utf-8') as f:
-              f.write(response.text.strip())
-          "
+        run: python generate_dashboard.py
 
       - name: Dashboard pushen naar GitHub Pages
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add index.html
-          # Alleen pushen als er daadwerkelijk iets veranderd is
           git diff-index --quiet HEAD || (git commit -m "Automatische dashboard update door Gemini" && git push)
