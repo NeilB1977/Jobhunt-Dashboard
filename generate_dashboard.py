@@ -1,21 +1,27 @@
 import os
+import sys
 from google import genai
 
 def main():
-    # Initialiseer de client met de API-sleutel
+    # Controleer of de API Key aanwezig is
+    if 'GEMINI_API_KEY' not in os.environ:
+        print("Fout: GEMINI_API_KEY omgevingsvariabele ontbreekt!")
+        sys.exit(1)
+
+    # Initialiseer de client
     client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
 
     # Lees je live data in
     if not os.path.exists('data.txt'):
         print("Fout: data.txt niet gevonden in de repository!")
-        return
+        sys.exit(1)
 
     with open('data.txt', 'r', encoding='utf-8') as f:
         live_data = f.read()
 
-    # De instructie voor Gemini (We gebruiken nu gemini-3.8-flash)
+    # De instructie voor Gemini 3.8 Flash
     prompt = f"""
-    Je bent een expert in data-dashboards. Analyseer de volgende data:
+    Analyseer de volgende data:
     {live_data}
     
     Maak op basis hiervan een prachtig, modern en responsive HTML-dashboard (index.html).
@@ -27,24 +33,36 @@ def main():
     """
 
     print("Dashboard aan het genereren via Gemini 3.8 Flash...")
-    response = client.models.generate_content(
-        model='gemini-3.8-flash',
-        contents=prompt,
-    )
-
-    # Schoon de output op (voor het geval Gemini toch markdown-tags toevoegt)
-    clean_html = response.text.strip()
-    if clean_html.startswith("```html"):
-        clean_html = clean_html.split("```html")[1]
-    if clean_html.endswith("```"):
-        clean_html = clean_html.rsplit("```", 1)[0]
-    clean_html = clean_html.strip()
-
-    # Sla het dashboard op
-    with open('index.html', 'w', encoding='utf-8') as f:
-        f.write(clean_html)
     
-    print("Dashboard succesvol gegenereerd en opgeslagen als index.html!")
+    try:
+        # We gebruiken de stabiele generate_content call
+        response = client.models.generate_content(
+            model='gemini-3.8-flash',
+            contents=prompt,
+        )
+        
+        raw_text = response.text.strip()
+        
+        # Veilige opschoning van eventuele markdown code-blocks
+        if raw_text.startswith("```html"):
+            raw_text = raw_text[7:]
+        elif raw_text.startswith("```"):
+            raw_text = raw_text[3:]
+            
+        if raw_text.endswith("```"):
+            raw_text = raw_text[:-3]
+            
+        clean_html = raw_text.strip()
+
+        # Sla het dashboard op
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(clean_html)
+        
+        print("Dashboard succesvol gegenereerd en opgeslagen als index.html!")
+
+    except Exception as e:
+        print(f"Er is een fout opgetreden tijdens de API aanroep: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
