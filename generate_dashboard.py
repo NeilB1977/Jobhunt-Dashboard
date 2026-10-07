@@ -4,7 +4,7 @@ import json
 
 # --- 1. JOUW INSTELLINGEN ---
 GEMINI_API_KEY = "AQ.Ab8RN6KmtluRoXeUFpm4i3ew-CP5k3uHPCBgmrT7KGrWKahipw"  # Je API key
-GITHUB_TOKEN = "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"                               # Zorg dat je PAT (token) hier is ingevuld
+GITHUB_TOKEN = "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"                               # Zorg dat je PAT (token) hier is ingevuld
 GITHUB_USERNAME = "NeilB1977"
 GITHUB_REPO = "Jobhunt-Dashboard"
 FILE_PATH = "index.html"
