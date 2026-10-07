@@ -7,16 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         function openTab(tabName) {
-            // Verberg alle tab content
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.add('hidden');
             });
-            // Reset alle tab knoppen
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('text-blue-600', 'border-blue-600');
                 btn.classList.add('text-gray-500', 'border-transparent');
             });
-            // Toon actieve tab en stijl knop
             document.getElementById(tabName).classList.remove('hidden');
             const activeBtn = document.getElementById('btn-' + tabName);
             activeBtn.classList.remove('text-gray-500', 'border-transparent');
@@ -38,7 +35,7 @@
             </div>
         </div>
 
-        <!-- Tab Navigatie (Horizontaal scrollbaar op kleine schermen) -->
+        <!-- Tab Navigatie -->
         <div class="border-b border-gray-300 overflow-x-auto">
             <nav class="-mb-px flex space-x-6 md:space-x-8 min-w-max px-2">
                 <button id="btn-sollicitaties" onclick="openTab('sollicitaties')" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm text-blue-600 border-blue-600 transition-colors">
@@ -62,15 +59,18 @@
                     <h2 class="text-xl font-bold mb-4 text-blue-700">🎯 Sollicitatie Pijplijn & Status</h2>
                     <ul class="space-y-3">
                         <li class="p-3.5 bg-orange-50 rounded border border-orange-200 shadow-sm">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1 gap-2">
-                                <strong class="text-base text-gray-800">* Kingfisher IT</strong>
-                                <span class="text-xs font-bold text-orange-700 bg-orange-200 px-2.5 py-1 rounded-full self-start">Gesprek wordt gepland</span>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
+                                <strong class="text-base text-gray-800">* Kingfisher IT (Michael Bellon)</strong>
+                                <span class="text-xs font-bold text-orange-700 bg-orange-200 px-2.5 py-1 rounded-full self-start">Voorstelling loopt</span>
                             </div>
-                            <div class="text-xs text-gray-600 mt-1">Vrije sollicitatie omgezet naar concrete kennismaking rond CRM/Customer 360.</div>
+                            <div class="text-xs text-gray-700 space-y-1.5 pl-2 border-l-2 border-orange-300">
+                                <div><strong>1. Van Breda Risk & Insurance:</strong> Agile IT Project Manager</div>
+                                <div><strong>2. Valantic:</strong> CRM Consultant / Project Manager</div>
+                            </div>
                         </li>
                         <li class="p-3.5 bg-orange-50 rounded border border-orange-200 shadow-sm">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1 gap-2">
-                                <strong class="text-base text-gray-800">* Vistex (<a href="https://www.vistex.com" target="_blank" class="text-blue-600 underline hover:text-blue-800">www.vistex.com</a>)</strong>
+                                <strong class="text-base text-gray-800">Vistex (<a href="https://www.vistex.com" target="_blank" class="text-blue-600 underline hover:text-blue-800">www.vistex.com</a>)</strong>
                                 <span class="text-xs font-bold text-orange-700 bg-orange-200 px-2.5 py-1 rounded-full self-start">In progress</span>
                             </div>
                             <div class="text-xs text-gray-700 mt-1"><strong>Rol:</strong> Industry Principal (Chemical Industry)<br><strong>Contact:</strong> Sandra Garitonandia</div>
@@ -81,10 +81,10 @@
                                 <span class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-0.5 rounded self-start">Actief bewaken</span>
                             </div>
                         </li>
-                        <li class="p-3 bg-gray-50 rounded border border-gray-200">
+                        <li class="p-3 bg-gray-50 rounded border border-gray-200 opacity-75">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                                <strong class="text-sm text-gray-800">Cronos Groep: Vrije sollicitatie</strong>
-                                <span class="text-xs text-gray-500 bg-gray-200 px-2 py-0.5 rounded self-start">Verstuurd 02/10</span>
+                                <strong class="text-sm text-gray-700">Cronos Groep: Vrije sollicitatie</strong>
+                                <span class="text-xs font-semibold text-gray-600 bg-gray-200 px-2 py-0.5 rounded self-start">Afgesloten (02/10)</span>
                             </div>
                         </li>
                         <li class="p-3 bg-gray-50 rounded border border-gray-200 opacity-75">
@@ -140,20 +140,20 @@
                         <h2 class="text-xl font-bold mb-3 text-yellow-600">💡 Vacature Suggestie</h2>
                         <div class="p-3.5 bg-yellow-50 rounded border border-yellow-100">
                             <h3 class="font-bold text-gray-800 text-sm">The Master Labs (Kontich)</h3>
-                            <p class="text-xs text-gray-700 mt-1">Business / Functioneel Analist – Digitale Transformatie. Matcht perfect met de bruggenbouwer-identiteit.</p>
+                            <p class="text-xs text-gray-700 mt-1">Business / Functioneel Analist – Digitale Transformatie. Matcht met de bruggenbouwer-identiteit.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Kanban Bord (Netwerk & Acties) -->
+            <!-- Kanban Bord -->
             <h2 class="text-2xl font-bold mt-8 text-blue-900">📋 Kanban Bord (Acties)</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- To Do -->
                 <div class="bg-red-50 p-4 rounded-lg shadow-md border border-red-100">
                     <h3 class="text-lg font-bold mb-4 text-red-700 flex items-center justify-between">
                         <span>🔴 To Do</span>
-                        <span class="text-xs bg-red-200 text-red-800 px-2 py-0.5 rounded-full font-semibold">4</span>
+                        <span class="text-xs bg-red-200 text-red-800 px-2 py-0.5 rounded-full font-semibold">3</span>
                     </h3>
                     <ul class="space-y-3">
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">
@@ -162,7 +162,8 @@
                             <span class="text-xs font-semibold text-red-600 block mt-2 bg-red-50 px-2 py-1 inline-block rounded">Doel: 2 per week</span>
                         </li>
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">
-                            <strong class="block text-gray-800 mb-1">* Follow-up bericht naar Grisha (Flexso)</strong>
+                            <strong class="block text-gray-800 mb-1">Follow-up bericht naar Grisha (Flexso)</strong>
+                            <div class="text-xs text-gray-600">Connectie geaccepteerd; informeel bericht sturen.</div>
                             <span class="text-xs font-semibold text-red-600 block mt-2 bg-red-50 px-2 py-1 inline-block rounded">Deadline: Deze week</span>
                         </li>
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">
@@ -176,15 +177,15 @@
                 <div class="bg-orange-50 p-4 rounded-lg shadow-md border border-orange-100">
                     <h3 class="text-lg font-bold mb-4 text-orange-700 flex items-center justify-between">
                         <span>🟠 In Progress</span>
-                        <span class="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-semibold">4</span>
+                        <span class="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-semibold">3</span>
                     </h3>
                     <ul class="space-y-3">
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
-                            <strong class="block text-gray-800 mb-1">* Kennismakingsgesprek Kingfisher IT plannen</strong>
-                            <div class="text-xs text-gray-600">Gespreksagenda en loonbenchmark afstemmen.</div>
+                            <strong class="block text-gray-800 mb-1">* Van Breda & Valantic pitches voorbereiden</strong>
+                            <div class="text-xs text-gray-600">Focus op Agile IT PM en CRM brugfunctie afstemmen met Michael Bellon.</div>
                         </li>
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
-                            <strong class="block text-gray-800 mb-1">* Gesprekken & fit-analyse met Vistex</strong>
+                            <strong class="block text-gray-800 mb-1">Gesprekken & fit-analyse met Vistex</strong>
                             <div class="text-xs text-gray-600">Contact: Sandra Garitonandia</div>
                         </li>
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
@@ -203,7 +204,7 @@
                     <ul class="space-y-3">
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
                             <strong class="block text-gray-800 mb-1">Vrije sollicitaties verstuurd</strong>
-                            <div class="text-xs text-gray-600">Cronos & Kingfisher IT</div>
+                            <div class="text-xs text-gray-600">Kingfisher IT (succesvol) & Cronos.</div>
                         </li>
                         <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
                             <strong class="block text-gray-800 mb-1">Netwerk KABAS gesproken</strong>
@@ -217,7 +218,7 @@
         <!-- ==================== TAB 2: PROFIEL ==================== -->
         <div id="profiel" class="tab-content hidden space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Elevator Pitch Kapstokken -->
+                <!-- Elevator Pitch -->
                 <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-indigo-500 flex flex-col">
                     <h2 class="text-xl font-bold mb-4 text-indigo-700 flex items-center gap-2">
                         <span>🎙️</span> Elevator Pitch (Kapstokken)
@@ -275,7 +276,7 @@
                     </li>
                     <li class="p-3 bg-gray-50 rounded border border-gray-200 text-sm text-gray-700 flex items-start">
                         <span class="mr-3 text-green-600">✔️</span> 
-                        <span><strong>Elevator Pitch</strong><br>Op punt gesteld (02/10)</span>
+                        <span><strong>Elevator Pitch</strong><br>Op punt gesteld naar kapstokken (02/10)</span>
                     </li>
                     <li class="p-3 bg-gray-50 rounded border border-gray-200 text-sm text-gray-700 flex items-start">
                         <span class="mr-3 text-green-600">✔️</span> 
@@ -295,7 +296,7 @@
                     <div class="p-4 bg-orange-50 rounded border border-orange-200 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
                         <div>
                             <strong class="text-lg text-gray-800">* LinkedIn Learning: SAP Analytics Cloud</strong>
-                            <p class="text-sm text-gray-600 mt-1">Versterken data- en margin visualisatie troeven.</p>
+                            <p class="text-sm text-gray-600 mt-1">Versterken van data- en margin visualisatie capaciteiten.</p>
                         </div>
                         <span class="text-xs font-bold text-orange-700 bg-orange-200 px-3 py-1.5 rounded-full whitespace-nowrap self-start md:self-auto">In progress (Gestart 06/10)</span>
                     </div>
@@ -313,7 +314,7 @@
                     <div class="p-4 bg-green-50 rounded border border-green-200 flex flex-col md:flex-row md:justify-between md:items-center gap-3 opacity-80">
                         <div>
                             <strong class="text-lg text-gray-800">LinkedIn Learning: Design Thinking</strong>
-                            <p class="text-sm text-gray-600 mt-1">Cruciaal voor de rol als adoptie-expert en bruggenbouwer.</p>
+                            <p class="text-sm text-gray-600 mt-1">Lead Change in Your Organization (Afgerond 05/10).</p>
                         </div>
                         <span class="text-xs font-bold text-green-700 bg-green-200 px-3 py-1.5 rounded-full whitespace-nowrap self-start md:self-auto">Afgerond (05/10)</span>
                     </div>
