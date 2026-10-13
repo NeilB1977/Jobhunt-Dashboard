@@ -3,334 +3,478 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobhunt Dashboard - Neil Broes</title>
+    <title>Neil Broes | Career & Jobhunt Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b1120;
+            color: #e2e8f0;
+        }
+        .bento-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        .bento-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 12px 35px -8px rgba(37, 99, 235, 0.15);
+        }
+        .tab-btn {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4);
+        }
+        .tab-inactive {
+            color: #94a3b8;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .tab-inactive:hover {
+            color: #ffffff;
+            background: rgba(51, 65, 85, 0.8);
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glow-subtle {
+            box-shadow: 0 0 35px -5px rgba(59, 130, 246, 0.15);
+        }
+    </style>
     <script>
         function openTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.add('hidden');
+                tab.classList.remove('fade-in');
             });
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('text-blue-600', 'border-blue-600');
-                btn.classList.add('text-gray-500', 'border-transparent');
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
             });
-            document.getElementById(tabName).classList.remove('hidden');
+            const target = document.getElementById(tabName);
+            target.classList.remove('hidden');
+            target.classList.add('fade-in');
             const activeBtn = document.getElementById('btn-' + tabName);
-            activeBtn.classList.remove('text-gray-500', 'border-transparent');
-            activeBtn.classList.add('text-blue-600', 'border-blue-600');
+            activeBtn.classList.remove('tab-inactive');
+            activeBtn.classList.add('tab-active');
         }
     </script>
 </head>
-<body class="bg-gray-100 p-4 md:p-8 font-sans">
-    <div class="max-w-6xl mx-auto space-y-6">
+<body class="min-h-screen p-4 sm:p-6 lg:p-10 relative overflow-x-hidden selection:bg-blue-600 selection:text-white">
+    <!-- Achtergrond verlichting -->
+    <div class="fixed top-[-15%] left-[-10%] w-[550px] h-[550px] bg-blue-600/15 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-[-15%] right-[-10%] w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+
+    <div class="max-w-7xl mx-auto space-y-8">
         
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between pb-4">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-blue-900">Jobhunt Dashboard</h1>
-                <p class="text-gray-600 text-sm mt-1">Overzicht loopbaancampagne Neil Broes | Senior Business Expert (CRM / Pricing / SAP SD)</p>
+        <!-- Top Nav & Header -->
+        <header class="bento-card rounded-3xl p-6 sm:p-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 glow-subtle">
+            <div class="flex items-center gap-5">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-blue-600/30 flex-shrink-0">
+                    NB
+                </div>
+                <div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Neil Broes</h1>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs px-3 py-1 rounded-full font-semibold">13 Okt 2026</span>
+                    </div>
+                    <p class="text-slate-400 text-sm sm:text-base mt-1 font-medium">Senior Business Expert <span class="text-slate-600">•</span> CRM, Pricing & SAP SD</p>
+                </div>
             </div>
-            <div class="mt-4 md:mt-0 text-xs text-gray-500 bg-white px-3 py-2 rounded shadow-sm border border-gray-200 inline-block">
-                <span class="text-emerald-600 font-bold">*</span> = Nieuw of recent gewijzigde status (Update: 12/10)
+
+            <!-- Tab Buttons -->
+            <div class="flex flex-wrap gap-2 w-full lg:w-auto p-1.5 bg-slate-900/60 rounded-2xl border border-white/5">
+                <button id="btn-dashboard" onclick="openTab('dashboard')" class="tab-btn tab-active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex-1 sm:flex-none">
+                    🎯 Pipeline & Kanban
+                </button>
+                <button id="btn-profiel" onclick="openTab('profiel')" class="tab-btn tab-inactive px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex-1 sm:flex-none">
+                    👤 DNA & Benchmark
+                </button>
+                <button id="btn-opleidingen" onclick="openTab('opleidingen')" class="tab-btn tab-inactive px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex-1 sm:flex-none">
+                    🎓 Opleidingen
+                </button>
             </div>
-        </div>
+        </header>
 
-        <!-- Tab Navigatie -->
-        <div class="border-b border-gray-300 overflow-x-auto">
-            <nav class="-mb-px flex space-x-6 md:space-x-8 min-w-max px-2">
-                <button id="btn-sollicitaties" onclick="openTab('sollicitaties')" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm text-blue-600 border-blue-600 transition-colors">
-                    🎯 Sollicitaties & Netwerk
-                </button>
-                <button id="btn-profiel" onclick="openTab('profiel')" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
-                    👤 Profiel & Positionering
-                </button>
-                <button id="btn-opleidingen" onclick="openTab('opleidingen')" class="tab-btn py-4 px-1 border-b-2 font-medium text-sm text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
-                    🎓 Opleidingen & Groei
-                </button>
-            </nav>
-        </div>
+        <!-- ==================== TAB 1: DASHBOARD ==================== -->
+        <main id="dashboard" class="tab-content block space-y-8">
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                
+                <!-- Linker kolom: Sollicitaties & Kanban (2 spans) -->
+                <div class="xl:col-span-2 space-y-8">
+                    
+                    <!-- Sollicitatie Pijplijn -->
+                    <section class="bento-card rounded-3xl p-6 sm:p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                                <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">💼</span>
+                                Lopende Sollicitaties
+                            </h2>
+                            <span class="text-xs text-slate-400 font-medium">Actief bewaken</span>
+                        </div>
 
-        <!-- ==================== TAB 1: SOLLICITATIES ==================== -->
-        <div id="sollicitaties" class="tab-content block space-y-6">
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Sollicitatie Pijplijn -->
-                <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-blue-500">
-                    <h2 class="text-xl font-bold mb-4 text-blue-700">🎯 Sollicitatie Pijplijn & Status</h2>
-                    <ul class="space-y-3">
-                        <li class="p-3.5 bg-orange-50 rounded border border-orange-200 shadow-sm">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1 gap-2">
-                                <strong class="text-base text-gray-800">* Groep IDEWE (<a href="https://jobs.idewe.be/nl/vacatures/1683?title=pricing--commercial-excellence-lead-(1683)" target="_blank" class="text-blue-600 underline hover:text-blue-800">Vacature</a>)</strong>
-                                <span class="text-xs font-bold text-orange-700 bg-orange-200 px-2.5 py-1 rounded-full self-start">Verstuurd 12/10</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- IDEWE -->
+                            <div class="p-5 rounded-2xl bg-slate-900/50 border border-emerald-500/30 hover:border-emerald-500/60 transition-colors">
+                                <div class="flex justify-between items-start gap-2 mb-2">
+                                    <h3 class="font-bold text-white text-base">Groep IDEWE</h3>
+                                    <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 text-xs px-2.5 py-0.5 rounded-md font-bold whitespace-nowrap">Verstuurd 12/10</span>
+                                </div>
+                                <p class="text-sm text-slate-300 font-medium">Pricing & Commercial Excellence Lead</p>
+                                <a href="https://jobs.idewe.be/nl/vacatures/1683?title=pricing--commercial-excellence-lead-(1683)" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 font-medium mt-3">
+                                    Vacature bekijken <span>↗</span>
+                                </a>
                             </div>
-                            <div class="text-xs text-gray-700 mt-1"><strong>Rol:</strong> Pricing & Commercial Excellence Lead (In-house focus op Pricing, Data & CRM)</div>
-                        </li>
-                        <li class="p-3.5 bg-orange-50 rounded border border-orange-200 shadow-sm">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
-                                <strong class="text-base text-gray-800">Kingfisher IT (Michael Bellon)</strong>
-                                <span class="text-xs font-bold text-orange-700 bg-orange-200 px-2.5 py-1 rounded-full self-start">Voorstelling loopt</span>
+
+                            <!-- Vistex -->
+                            <div class="p-5 rounded-2xl bg-slate-900/50 border border-amber-500/30 hover:border-amber-500/60 transition-colors">
+                                <div class="flex justify-between items-start gap-2 mb-2">
+                                    <h3 class="font-bold text-white text-base">Vistex</h3>
+                                    <span class="bg-amber-500/15 text-amber-300 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded-md font-bold whitespace-nowrap">Contact deze week</span>
+                                </div>
+                                <p class="text-sm text-slate-300 font-medium">Industry Principal (Chemical Industry)</p>
+                                <p class="text-xs text-slate-400 mt-3 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Sandra Garitonandia
+                                </p>
                             </div>
-                            <div class="text-xs text-gray-700 space-y-1.5 pl-2 border-l-2 border-orange-300">
-                                <div><strong>1. Van Breda Risk & Insurance:</strong> Agile IT Project Manager (<a href="https://www.vanbreda.be/nl/werken-bij-vanbreda/onze-vacatures-archief/agile-it-project-manager" target="_blank" class="text-blue-600 underline hover:text-blue-800">Vacature</a>)</div>
-                                <div><strong>2. Valantic:</strong> CRM Consultant / Project Manager</div>
+
+                            <!-- Kingfisher IT -->
+                            <div class="p-5 rounded-2xl bg-slate-900/50 border border-blue-500/30 md:col-span-2">
+                                <div class="flex justify-between items-start gap-2 mb-4">
+                                    <div>
+                                        <h3 class="font-bold text-white text-base">Kingfisher IT</h3>
+                                        <p class="text-xs text-slate-400">Voorstelling via Michael Bellon</p>
+                                    </div>
+                                    <span class="bg-blue-500/15 text-blue-300 border border-blue-500/20 text-xs px-2.5 py-0.5 rounded-md font-bold">Voorstelling loopt</span>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div class="p-3.5 bg-slate-800/40 rounded-xl border border-white/5">
+                                        <span class="text-xs text-blue-400 font-bold block mb-1">Traject 1</span>
+                                        <strong class="text-sm text-white block">Van Breda Risk & Insurance</strong>
+                                        <span class="text-xs text-slate-400">Agile IT Project Manager</span>
+                                    </div>
+                                    <div class="p-3.5 bg-slate-800/40 rounded-xl border border-white/5">
+                                        <span class="text-xs text-blue-400 font-bold block mb-1">Traject 2</span>
+                                        <strong class="text-sm text-white block">Valantic</strong>
+                                        <span class="text-xs text-slate-400">CRM Consultant / PM</span>
+                                    </div>
+                                </div>
                             </div>
-                        </li>
-                        <li class="p-3.5 bg-orange-50 rounded border border-orange-200 shadow-sm">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-1 gap-2">
-                                <strong class="text-base text-gray-800">Vistex (<a href="https://www.vistex.com" target="_blank" class="text-blue-600 underline hover:text-blue-800">www.vistex.com</a>)</strong>
-                                <span class="text-xs font-bold text-orange-700 bg-orange-200 px-2.5 py-1 rounded-full self-start">Contact deze week</span>
+
+                            <!-- Overige Actieve Pistes -->
+                            <div class="p-4 rounded-2xl bg-slate-900/30 border border-white/5 md:col-span-2 flex flex-wrap items-center justify-between gap-3 text-xs">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="text-slate-400 font-medium">Openstaand:</span>
+                                    <span class="px-2.5 py-1 rounded-lg bg-slate-800 border border-white/5 text-slate-200">The Master Labs (08/10)</span>
+                                    <span class="px-2.5 py-1 rounded-lg bg-slate-800 border border-white/5 text-slate-200">Q8 (Digital PM)</span>
+                                    <span class="px-2.5 py-1 rounded-lg bg-slate-800 border border-white/5 text-slate-200">Cronos Groep</span>
+                                </div>
+                                <span class="text-slate-500 italic">Unikoo & iO afgerond</span>
                             </div>
-                            <div class="text-xs text-gray-700 mt-1"><strong>Rol:</strong> Industry Principal (Chemical Industry)<br><strong>Contact:</strong> Sandra Garitonandia (neemt deze week contact op)</div>
-                        </li>
-                        <li class="p-3 bg-gray-50 rounded border border-gray-200">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                                <strong class="text-sm text-gray-800">The Master Labs: Senior Consultant</strong>
-                                <span class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-0.5 rounded self-start">Verstuurd 08/10</span>
+                        </div>
+                    </section>
+
+                    <!-- Kanban Actiebord -->
+                    <section class="bento-card rounded-3xl p-6 sm:p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                                <span class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">📋</span>
+                                Taken & Voortgang
+                            </h2>
+                            <span class="text-xs text-slate-400">Wekelijks bijgewerkt</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- To Do -->
+                            <div class="p-5 rounded-2xl bg-slate-900/40 border border-rose-500/20 space-y-3">
+                                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                                    <span class="text-xs font-extrabold tracking-wider text-rose-400 uppercase">🔴 To Do</span>
+                                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-300">3 open</span>
+                                </div>
+                                <div class="p-3.5 bg-slate-800/50 rounded-xl border border-white/5">
+                                    <strong class="text-sm text-white block mb-0.5">Nieuw Open Target Selecteren</strong>
+                                    <p class="text-xs text-slate-400">Kiezen tussen BrightFox, Atlas Copco, Moore of Soudal/Etex.</p>
+                                </div>
+                                <div class="p-3.5 bg-slate-800/50 rounded-xl border border-white/5">
+                                    <strong class="text-sm text-white block mb-0.5">Module AI of PowerBI</strong>
+                                    <p class="text-xs text-slate-400">Korte praktische module inplannen (Deadline: deze maand).</p>
+                                </div>
+                                <div class="p-3.5 bg-slate-800/50 rounded-xl border border-white/5">
+                                    <strong class="text-sm text-white block mb-0.5">Opvolging Boris (Pricefx)</strong>
+                                    <p class="text-xs text-slate-400">Vaste contactdatum: 2 november.</p>
+                                </div>
                             </div>
-                        </li>
-                        <li class="p-3 bg-gray-50 rounded border border-gray-200">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                                <strong class="text-sm text-gray-800">Q8: Project Coördinator Digital & IT</strong>
-                                <span class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-0.5 rounded self-start">Actief bewaken</span>
+
+                            <!-- In Progress -->
+                            <div class="p-5 rounded-2xl bg-slate-900/40 border border-amber-500/20 space-y-3">
+                                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                                    <span class="text-xs font-extrabold tracking-wider text-amber-400 uppercase">🟠 In Progress</span>
+                                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300">Actief</span>
+                                </div>
+                                <div class="p-3.5 bg-slate-800/50 rounded-xl border border-white/5">
+                                    <strong class="text-sm text-white block mb-0.5">Grisha (Flexso)</strong>
+                                    <p class="text-xs text-slate-400">Rechtstreekse opvolging met HR Manager.</p>
+                                </div>
+                                <div class="p-3.5 bg-slate-800/50 rounded-xl border border-white/5">
+                                    <strong class="text-sm text-white block mb-0.5">Wouter Flik (Cooder)</strong>
+                                    <p class="text-xs text-slate-400">Netwerkcontact / IT Matchmaking opvolgen.</p>
+                                </div>
+                                <div class="p-3 bg-slate-950/40 rounded-xl border border-white/5 text-xs text-slate-400 flex items-center justify-between">
+                                    <span>Koude reach-outs (BASF, Reynaers, Ineos)</span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-slate-300">ON HOLD</span>
+                                </div>
                             </div>
-                        </li>
-                        <li class="p-3 bg-gray-50 rounded border border-gray-200">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                                <strong class="text-sm text-gray-800">Cronos Groep: Vrije sollicitatie</strong>
-                                <span class="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-0.5 rounded self-start">Dossier nog open</span>
-                            </div>
-                        </li>
-                        <li class="p-3 bg-gray-50 rounded border border-gray-200 opacity-75">
-                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                                <strong class="text-sm text-gray-700">Unikoo & iO</strong>
-                                <span class="text-xs font-semibold text-gray-600 bg-gray-200 px-2 py-0.5 rounded self-start">Afgesloten</span>
-                            </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </section>
                 </div>
 
-                <!-- Checklist Vistex & Suggesties -->
-                <div class="space-y-6">
-                    <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-yellow-400">
-                        <h2 class="text-xl font-bold mb-3 text-yellow-600">💡 Targets voor Open Sollicitaties & Vacatures</h2>
-                        <p class="text-xs text-gray-500 mb-3 italic">Focus op gezonde bedrijven en langdurige professionele relaties (geen interim management, Agfa geschrapt).</p>
+                <!-- Rechterkolom: Targets & Vistex Cheat Sheet -->
+                <div class="space-y-8">
+                    
+                    <!-- Open Targets -->
+                    <section class="bento-card rounded-3xl p-6 sm:p-8 border-blue-500/20">
+                        <h2 class="text-xl font-bold text-white mb-2 flex items-center gap-3">
+                            <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">🏢</span>
+                            Geselecteerde Targets
+                        </h2>
+                        <p class="text-xs text-slate-400 mb-5">Stabiele B2B & corporate omgevingen (geen interim).</p>
+                        
                         <div class="space-y-3">
-                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200">
-                                <h3 class="font-bold text-gray-800 text-sm">BrightFox (Kontich – Cronos)</h3>
-                                <p class="text-xs text-gray-700 mt-1">Gespecialiseerd expertisecentrum voor CRM (Salesforce) & Customer Experience vlakbij Boechout. Matcht met 20+ jaar Customer 360 ervaring.</p>
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                                <strong class="text-sm text-blue-300 block">BrightFox (Kontich)</strong>
+                                <span class="text-xs text-slate-400">Salesforce & CRM Excellence (vlakbij Boechout)</span>
                             </div>
-                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200">
-                                <h3 class="font-bold text-gray-800 text-sm">Atlas Copco (Wilrijk)</h3>
-                                <p class="text-xs text-gray-700 mt-1">Financieel ijzersterke industriële B2B-wereldspeler met grote in-house IT & Business Process organisatie. Richt op BPO (Pricing / CRM / SAP SD) of IT Business Partner.</p>
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                                <strong class="text-sm text-blue-300 block">Atlas Copco (Wilrijk)</strong>
+                                <span class="text-xs text-slate-400">In-House BPO / IT Business Partner</span>
                             </div>
-                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200">
-                                <h3 class="font-bold text-gray-800 text-sm">Moore Belgium (Antwerpen)</h3>
-                                <p class="text-xs text-gray-700 mt-1">Business Consulting & Digital Transformation. Focus op langetermijnrelaties en 'Sherpa'-begeleiding van procesanalyse tot adoptie.</p>
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                                <strong class="text-sm text-blue-300 block">Moore Belgium</strong>
+                                <span class="text-xs text-slate-400">Digital Consulting & 'Sherpa' transformaties</span>
                             </div>
-                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200">
-                                <h3 class="font-bold text-gray-800 text-sm">Soudal (Turnhout) / Etex / Port of Antwerp-Bruges</h3>
-                                <p class="text-xs text-gray-700 mt-1">Stabiele Belgische industriële & logistieke groeiers met grote S/4HANA-, CRM- en digitaliseringstrajecten.</p>
+                            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
+                                <strong class="text-sm text-blue-300 block">Soudal / Etex / Port of Antwerp</strong>
+                                <span class="text-xs text-slate-400">Industriële schaal & S/4HANA supply chain</span>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-purple-500">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
-                            <h2 class="text-xl font-bold text-purple-700">✅ Checklist Vistex</h2>
-                            <span class="text-xs font-semibold text-purple-700 bg-purple-100 px-2.5 py-1 rounded self-start">Cheat Sheet Klaar</span>
+                    <!-- Vistex Checklist -->
+                    <section class="bento-card rounded-3xl p-6 sm:p-8">
+                        <h2 class="text-xl font-bold text-white mb-5 flex items-center gap-3">
+                            <span class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">⚡</span>
+                            Vistex Gesprekskaart
+                        </h2>
+                        <ul class="space-y-2.5 text-xs text-slate-300 font-medium">
+                            <li class="p-3 rounded-xl bg-slate-900/40 border border-white/5 flex items-center gap-3">
+                                <span class="text-emerald-400 font-bold">✓</span> SAP SOLEX & Gross-to-Net visie
+                            </li>
+                            <li class="p-3 rounded-xl bg-slate-900/40 border border-white/5 flex items-center gap-3">
+                                <span class="text-emerald-400 font-bold">✓</span> WIIFM-adoptiestrategie (bruggenbouwer)
+                            </li>
+                            <li class="p-3 rounded-xl bg-slate-900/40 border border-white/5 flex items-center gap-3">
+                                <span class="text-emerald-400 font-bold">✓</span> Vendavo praktijkcase (€2/ton uplift)
+                            </li>
+                            <li class="p-3 rounded-xl bg-slate-900/40 border border-white/5 flex items-center gap-3">
+                                <span class="text-emerald-400 font-bold">✓</span> Afstemmen reisbereidheid (30-50%)
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- ==================== TAB 2: PROFIEL & BENCHMARK ==================== -->
+        <main id="profiel" class="tab-content hidden space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Elevator Pitch & DNA -->
+                <section class="bento-card rounded-3xl p-6 sm:p-8 space-y-6">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                        <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">🎙️</span>
+                        Elevator Pitch & Kernboodschap
+                    </h2>
+                    
+                    <blockquote class="p-5 rounded-2xl bg-gradient-to-r from-blue-900/30 to-indigo-900/30 border border-blue-500/30 text-slate-200 text-sm sm:text-base leading-relaxed italic">
+                        "Ik ben een Senior Business Expert met ruim 20 jaar ervaring in CRM, Pricing en SAP SD. Als pragmatische bruggenbouwer dicht ik de kloof tussen strategische businessbehoeften en IT-levering. Door altijd te zoeken naar de 'what's in it for me' creëer ik draagvlak van de werkvloer tot C-level, zodat technologie écht rendeert."
+                    </blockquote>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div class="p-4 rounded-xl bg-slate-900/50 border border-white/5">
+                            <strong class="text-blue-400 block mb-1">Helikopterblik</strong>
+                            Complexe processen opdelen in behapbare, pragmatische oplossingen.
                         </div>
-                        <ul class="space-y-2">
-                            <li class="p-2.5 bg-purple-50 rounded border border-purple-200 flex justify-between items-center text-xs">
-                                <span><strong>Vistex & Neil positionering:</strong> SAP SOLEX, Gross-to-Net, WIIFM & Vendavo ervaring</span>
-                                <span class="font-bold text-green-700 bg-green-200 px-2 py-0.5 rounded-full">Klaar</span>
-                            </li>
-                            <li class="p-2.5 bg-purple-50 rounded border border-purple-200 flex justify-between items-center text-xs">
-                                <span><strong>Open vragen:</strong> Reisverwachting (30-50%), Work-Life Balance & rolverdeling met SAP</span>
-                                <span class="font-bold text-green-700 bg-green-200 px-2 py-0.5 rounded-full">Klaar</span>
-                            </li>
-                        </ul>
+                        <div class="p-4 rounded-xl bg-slate-900/50 border border-white/5">
+                            <strong class="text-blue-400 block mb-1">Adoptie-Expertise</strong>
+                            Focus op de mens achter het proces voor duurzame verandering.
+                        </div>
                     </div>
+                </section>
+
+                <!-- Salaris & Loopbaanvoorkeuren -->
+                <div class="space-y-8">
+                    <section class="bento-card rounded-3xl p-6 sm:p-8 space-y-6">
+                        <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                            <span class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">💶</span>
+                            Salaris Benchmark
+                        </h2>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-slate-900/50 border border-white/5">
+                                <span class="text-xs text-slate-400 block mb-1">Richtvork (Doel)</span>
+                                <strong class="text-lg sm:text-xl text-emerald-400 font-extrabold">€6.200 – €6.800</strong>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/50 border border-white/5">
+                                <span class="text-xs text-slate-400 block mb-1">Anker (Borealis)</span>
+                                <strong class="text-lg sm:text-xl text-slate-200 font-extrabold">> €100k / jaar</strong>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex flex-wrap justify-between items-center gap-2 text-xs">
+                            <span class="text-slate-300 font-medium">Randvoorwaarden:</span>
+                            <span class="text-emerald-300 font-bold bg-emerald-950/60 px-3 py-1 rounded-lg border border-emerald-500/30">Bedrijfswagen + Min. 32 dagen verlof</span>
+                        </div>
+                    </section>
+
+                    <section class="bento-card rounded-3xl p-6 sm:p-8">
+                        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                            <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">🧭</span>
+                            Loopbaanankers & Relatieopbouw
+                        </h2>
+                        <div class="p-4 rounded-2xl bg-slate-900/50 border border-white/5 text-xs text-slate-300 leading-relaxed">
+                            <strong class="text-white block mb-2 text-sm">Geen Interim Management</strong>
+                            Drijfveren liggen in langdurig opgebouwde professionele relaties (Sociale Gedrevenheid 97.9%, Professionele Stabiliteit 86.7%).
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-white/5">In-house BPO</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-white/5">CoE Lead</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-white/5">Customer Success</span>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
-
-            <!-- Kanban Bord -->
-            <h2 class="text-2xl font-bold mt-8 text-blue-900">📋 Kanban Bord (Acties)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- To Do -->
-                <div class="bg-red-50 p-4 rounded-lg shadow-md border border-red-100">
-                    <h3 class="text-lg font-bold mb-4 text-red-700 flex items-center justify-between">
-                        <span>🔴 To Do</span>
-                        <span class="text-xs bg-red-200 text-red-800 px-2 py-0.5 rounded-full font-semibold">3</span>
-                    </h3>
-                    <ul class="space-y-3">
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">
-                            <strong class="block text-gray-800 mb-1">LinkedIn Learning: BPMN 2.0</strong>
-                            <div class="text-xs text-gray-600">Korte cursus Business Process Modeling (< 3u) afronden.</div>
-                            <span class="text-xs font-semibold text-red-600 block mt-2 bg-red-50 px-2 py-1 inline-block rounded">Deadline: Deze week</span>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">
-                            <strong class="block text-gray-800 mb-1">Focus op concrete vacatures & open sollicitaties</strong>
-                            <div class="text-xs text-gray-600">Volgende target selecteren (bv. BrightFox, Atlas Copco, Umicore, INEOS).</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-red-500">
-                            <strong class="block text-gray-800 mb-1">Opnieuw contact opnemen met Boris (Pricefx)</strong>
-                            <span class="text-xs text-gray-600 block mt-2 bg-gray-100 px-2 py-1 inline-block rounded">Deadline: 2 november</span>
-                        </li>
-                        <li class="bg-gray-100 p-2.5 rounded text-xs border-l-4 border-gray-400 opacity-75">
-                            <strong class="block text-gray-600">⏸️ On Hold: Koude reach-outs (BASF, Reynaers, Ineos)</strong>
-                            <span class="text-gray-500">Uitgesteld ten gunste van concrete vacatures & open sollicitaties.</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- In Progress -->
-                <div class="bg-orange-50 p-4 rounded-lg shadow-md border border-orange-100">
-                    <h3 class="text-lg font-bold mb-4 text-orange-700 flex items-center justify-between">
-                        <span>🟠 In Progress</span>
-                        <span class="text-xs bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full font-semibold">4</span>
-                    </h3>
-                    <ul class="space-y-3">
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
-                            <strong class="block text-gray-800 mb-1">Grisha (HR Manager Flexso) contacteren</strong>
-                            <div class="text-xs text-gray-600">Rechtstreeks contact en kennismaking opvolgen.</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
-                            <strong class="block text-gray-800 mb-1">Vervolggesprek Vistex (Sandra)</strong>
-                            <div class="text-xs text-gray-600">Sandra neemt deze week contact op.</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
-                            <strong class="block text-gray-800 mb-1">Van Breda & Valantic pitches (Kingfisher IT)</strong>
-                            <div class="text-xs text-gray-600">Voorstelling Agile IT PM en CRM brugfunctie via Michael Bellon.</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-orange-500">
-                            <strong class="block text-gray-800 mb-1">Reach-out Wouter Flik (Cooder) opvolgen</strong>
-                            <div class="text-xs text-gray-600">IT Jobplatform connectie</div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Done -->
-                <div class="bg-green-50 p-4 rounded-lg shadow-md border border-green-100">
-                    <h3 class="text-lg font-bold mb-4 text-green-700 flex items-center justify-between">
-                        <span>🟢 Done</span>
-                        <span class="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full font-semibold">6</span>
-                    </h3>
-                    <ul class="space-y-3">
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
-                            <strong class="block text-gray-800 mb-1">* Sollicitatie Groep IDEWE ingediend</strong>
-                            <div class="text-xs text-gray-600">Pricing & Commercial Excellence Lead (12/10).</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
-                            <strong class="block text-gray-800 mb-1">Update LinkedIn status</strong>
-                            <div class="text-xs text-gray-600">"Project Update: Open to Work" post gepubliceerd.</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
-                            <strong class="block text-gray-800 mb-1">Netwerk event RiseSmart</strong>
-                            <div class="text-xs text-gray-600">Voorbereid en succesvol bijgewoond.</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
-                            <strong class="block text-gray-800 mb-1">Sollicitaties Unikoo & iO</strong>
-                            <div class="text-xs text-gray-600">Dossiers afgesloten.</div>
-                        </li>
-                        <li class="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-green-500">
-                            <strong class="block text-gray-800 mb-1">Netwerk KABAS gesproken</strong>
-                            <div class="text-xs text-gray-600">Contact gehad met Raf Vereycken.</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== TAB 2: PROFIEL ==================== -->
-        <div id="profiel" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Elevator Pitch -->
-                <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-indigo-500 flex flex-col">
-                    <h2 class="text-xl font-bold mb-4 text-indigo-700 flex items-center gap-2">
-                        <span>🎙️</span> Elevator Pitch (Kapstokken)
-                    </h2>
-                    <div class="bg-indigo-50 p-4 rounded border border-indigo-100 flex-grow">
-                        <ul class="list-disc pl-5 text-gray-800 space-y-3 text-sm">
-                            <li><strong>Het Fundament:</strong> Senior Business Expert met 20+ jaar in-house B2B-ervaring in CRM, Pricing & SAP SD.</li>
-                            <li><strong>De Missie:</strong> De pragmatische bruggenbouwer die de kloof overbrugt tussen strategische businessbehoeften en IT-levering.</li>
-                            <li><strong>De Aanpak:</strong> Helikopterblik inzetten om complexe processen te ontleden en behapbaar te maken.</li>
-                            <li><strong>De USP (Adoptie):</strong> Focus op de mens achter het proces door altijd te zoeken naar de <em>'what's in it for me'</em> (WIIFM) voor elke stakeholder.</li>
-                            <li><strong>Het Resultaat:</strong> Draagvlak van de werkvloer tot C-level; technologie die écht geadopteerd wordt en direct meetbare commerciële waarde oplevert.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Loonverwachtingen -->
-                <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-emerald-500 flex flex-col">
-                    <h2 class="text-xl font-bold mb-4 text-emerald-700 flex items-center gap-2">
-                        <span>💶</span> Loonverwachtingen (Benchmark)
-                    </h2>
-                    <div class="bg-emerald-50 p-4 rounded border border-emerald-200 flex-grow">
-                        <ul class="space-y-4 text-sm text-gray-800">
-                            <li class="flex flex-col sm:flex-row sm:justify-between border-b border-emerald-100 pb-3 gap-1">
-                                <span class="font-semibold text-gray-700">Het Anker (Borealis):</span>
-                                <span class="sm:text-right">> €100k bruto/jaar (basis €6.800 + bonus, geen wagen, 43 dgn verlof)</span>
-                            </li>
-                            <li class="flex flex-col sm:flex-row sm:justify-between border-b border-emerald-100 pb-3 gap-1">
-                                <span class="font-semibold text-emerald-800">De Richtvork (Doel):</span>
-                                <span class="font-bold text-emerald-900 bg-emerald-200 px-2 py-0.5 rounded self-start sm:self-auto">€6.200 – €6.800 bruto/maand</span>
-                            </li>
-                            <li class="flex flex-col sm:flex-row sm:justify-between border-b border-emerald-100 pb-3 gap-1">
-                                <span class="font-semibold text-gray-700">Randvoorwaarde 1:</span>
-                                <span class="sm:text-right">Volwaardige bedrijfswagen of mobiliteitsbudget</span>
-                            </li>
-                            <li class="flex flex-col sm:flex-row sm:justify-between border-b border-emerald-100 pb-3 gap-1">
-                                <span class="font-semibold text-gray-700">Randvoorwaarde 2:</span>
-                                <span class="sm:text-right">Minimaal 32 vakantiedagen (incl. ADV)</span>
-                            </li>
-                            <li class="flex flex-col sm:flex-row sm:justify-between pt-1 gap-1">
-                                <span class="font-semibold text-gray-700">Bodemlijn:</span>
-                                <span class="font-bold text-gray-900">Veilig boven €3.500 netto/maand</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Loopbaanvoorkeuren & Afgeronde Acties -->
-            <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-gray-400">
-                <h2 class="text-xl font-bold mb-4 text-gray-700">🧭 Loopbaanankers & Afgeronde Profielacties</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-3 bg-blue-50 rounded border border-blue-200 text-sm text-gray-800">
-                        <strong>Focus op Duurzame Relaties (Geen Interim):</strong><br>
-                        Energie komt uit langdurig opgebouwde professionele relaties (Sociale Gedrevenheid 97.9%, Professionele Stabiliteit 86.7%). Focus op vaste in-house rollen (zoals bij IDEWE, BPO / CoE Lead) of langdurige strategische consultancy/Customer Success.
-                    </div>
-                    <div class="p-3 bg-gray-50 rounded border border-gray-200 text-sm text-gray-700">
-                        <strong>✔️ Afgeronde Mijlpalen:</strong><br>
-                        • LinkedIn "Project Update" post gepubliceerd<br>
-                        • Elevator Pitch & WIIFM-kapstokken vastgelegd<br>
-                        • Salarisstrategie & Borealis-anker bepaald
-                    </div>
-                </div>
-            </div>
-        </div>
+        </main>
 
         <!-- ==================== TAB 3: OPLEIDINGEN ==================== -->
-        <div id="opleidingen" class="tab-content hidden space-y-6">
-            <div class="bg-white p-5 md:p-6 rounded-lg shadow-md border-t-4 border-teal-500">
-                <h2 class="text-xl md:text-2xl font-bold mb-6 text-teal-800">🎓 Actuele Opleidingen Tracker</h2>
+        <main id="opleidingen" class="tab-content hidden space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
-                <div class="space-y-4">
-                    <!-- To Do Deze Week -->
-                    <div class="p-4 bg-red-50 rounded border border-red-200 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
-                        <div>
-                            <strong class="text-lg text-gray-800">LinkedIn Learning: Business Process Modeling (BPMN 2.0)</strong>
-                            <p class="text-sm text-gray-600 mt-1">Korte cursus (< 3u) om het technisch-functionele procesmapping-luik formeel af te dekken.</p>
-                        </div>
-                        <span class="text-xs font-bold text-red-700 bg-red-200 px-3 py-1.5 rounded-full whitespace-nowrap self-start md:self-auto">Doel: Deze week</span>
-                    </div>
+                <!-- Actuele Cursussen -->
+                <section class="bento-card rounded-3xl p-6 sm:p-8 space-y-6">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                        <span class="p-2.5 rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20">🎓</span>
+                        Lopend & Recent Voltooid
+                    </h2>
 
-                    <!-- In Progress -->
-                    <div class="p-4 bg-orange-50 rounded border border-orange-200 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
-                        <div>
-                            <strong class="text-lg text-gray-800">LinkedIn Learning: SAP Analytics Cloud</strong>
-                            <p class="text-sm text-gray-600 mt-1">Versterken van data- en margin visualisatie capaciteiten.</p>
+                    <div class="space-y-4">
+                        <!-- BPMN Voltooid -->
+                        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black flex-shrink-0">✓</div>
+                            <div>
+                                <strong class="text-sm sm:text-base text-white block">Business Process Modeling (BPMN 2.0)</strong>
+                                <p class="text-xs text-slate-400 mt-1">Afgerond! Formele procesmapping en documentatie afgedekt.</p>
+                            </div>
                         </div>
-                        <span class="text-xs font-bold text-orange-700 bg-orange-200 px-3 py-1.5 rounded-full whitespace-nowrap self-start md:self-auto">In progress (Gestart 06/10)</span>
+
+                        <!-- Customer Success -->
+                        <div class="p-4 rounded-2xl bg-slate-900/60 border border-amber-500/30 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black flex-shrink-0 animate-pulse">▶</div>
+                            <div>
+                                <strong class="text-sm sm:text-base text-white block">Customer Success Fundamentals</strong>
+                                <p class="text-xs text-slate-400 mt-1">In progress (LinkedIn). Strategisch voor SaaS, BPO en adoptierollen.</p>
+                            </div>
+                        </div>
+
+                        <!-- SAP Analytics Cloud -->
+                        <div class="p-4 rounded-2xl bg-slate-900/60 border border-blue-500/30 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-black flex-shrink-0">▶</div>
+                            <div>
+                                <strong class="text-sm sm:text-base text-white block">SAP Analytics Cloud</strong>
+                                <p class="text-xs text-slate-400 mt-1">In progress. Datavisualisatie en marge-analyses verdiepen.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High-ROI Lange Termijn -->
+                <section class="bento-card rounded-3xl p-6 sm:p-8 space-y-6">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                        <span class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">🚀</span>
+                        Strategische Certificeringen
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="p-5 rounded-2xl bg-slate-900/60 border border-white/5">
+                            <strong class="text-sm sm:text-base text-blue-400 block mb-1">1. Prince2 Agile of SAFe</strong>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                <strong>Voor Corporate Project Governance:</strong> Verbindt Certified ScrumMaster-ervaring met formele structuren die corporate werkgevers (zoals Q8 en Umicore) vragen.
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-slate-900/60 border border-white/5">
+                            <strong class="text-sm sm:text-base text-blue-400 block mb-1">2. Certified Pricing Professional (CPP) – AI & Pricing</strong>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                <strong>Voor Niche Pricing Autoriteit:</strong> Bouwt voort op 20+ jaar Vendavo/SAP SD en levert een formele titel op voor topfuncties bij Vistex, Pricefx of IDEWE.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Historiek Grid -->
+            <section class="bento-card rounded-3xl p-6 sm:p-8">
+                <h2 class="text-lg font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="p-2 rounded-xl bg-slate-800 text-slate-300">🏆</span>
+                    Geverifieerde Certificeringen & Cursussen
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="p-4 rounded-2xl bg-slate-900/40 border border-white/5">
+                        <strong class="text-white block mb-2 font-semibold">Change Management</strong>
+                        <ul class="text-slate-400 space-y-1.5">
+                            <li>• Change Mgmt Prof. Cert. (12/2025)</li>
+                            <li>• Learning Design Thinking (10/2026)</li>
+                            <li>• Foundations & Execution Roadmaps</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900/40 border border-white/5">
+                        <strong class="text-white block mb-2 font-semibold">AI & Business Analysis</strong>
+                        <ul class="text-slate-400 space-y-1.5">
+                            <li>• AI Essentials for BA</li>
+                            <li>• Gen AI for Marketing Certificate</li>
+                            <li>• Power BI Essential Training (2024)</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900/40 border border-white/5">
+                        <strong class="text-white block mb-2 font-semibold">Pricing, CRM & CX</strong>
+                        <ul class="text-slate-400 space-y-1.5">
+                            <li>• Value-Based Pricing Strategy</li>
+                            <li>• B2B Marketing: Pricing Strategies</li>
+                            <li>• Salesforce CPQ & Journey Mapping</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900/40 border border-white/5">
+                        <strong class="text-white block mb-2 font-semibold">Project Management</strong>
+                        <ul class="text-slate-400 space-y-1.5">
+                            <li>• Career Essentials in PM (Microsoft)</li>
+                            <li>• Certified ScrumMaster (CSM)</li>
+                            <li>• Agile at Work (Sprints & Boards)</li>
+                        </ul>
                     </div>
                 </div>
+            </section>
+        </main>
+
+    </div>
+</body>
+</html>
